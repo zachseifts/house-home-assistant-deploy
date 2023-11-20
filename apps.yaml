@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: house-home-assistant
+  namespace: argocd
+spec:
+  description: An argocd app project for hosting a local house-home-assistant instance
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  sourceRepos:
+  - https://github.com/zachseifts/dashboard.git
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: house-home-assistant
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/zachseifts/house-home-assistant-deploy.git
+      revision: HEAD
+      directories:
+        - path: environments/*
+  template:
+    metadata:
+      name: 'house-home-assistant-{{path.basename}}'
+    spec:
+      project: house-home-assistant
+      source:
+        repoURL: https://github.com/zachseifts/house-home-assistant-deploy.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'house-home-assistant-{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
