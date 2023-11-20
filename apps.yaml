@@ -25,7 +25,7 @@ spec:
       repoURL: https://github.com/zachseifts/house-home-assistant-deploy.git
       revision: HEAD
       directories:
-        - path: environments/*
+        - path: overlays/*
   template:
     metadata:
       name: 'house-home-assistant-{{path.basename}}'
