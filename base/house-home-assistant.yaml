@@ -32,3 +32,16 @@ spec:
   selector:
     component: house-home-assistant
   type: ClusterIP
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: house-home-assistant-pvc
+  labels:
+    component: house-home-assistant
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
