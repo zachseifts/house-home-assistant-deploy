@@ -13,7 +13,7 @@ spec:
     namespace: '*'
     server: https://kubernetes.default.svc
   sourceRepos:
-  - https://github.com/zachseifts/dashboard.git
+  - https://github.com/zachseifts/house-home-assistant-deploy.git
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
