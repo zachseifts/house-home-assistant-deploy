@@ -33,6 +33,38 @@ spec:
     component: house-home-assistant
   type: ClusterIP
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: house-home-assistant-deployment
+  labels:
+    component: house-home-assistant
+spec:
+  selector:
+    matchLabels:
+      component: house-home-assistant
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: house-home-assistant
+    spec:
+      containers:
+        - name: house-home-assistant-image
+          image: ghcr.io/home-assistant/home-assistant:2023.11.2
+          ports:
+            - containerPort: 8123
+          envFrom:
+            - configMapRef:
+                name: "house-home-assistant-config"
+          volumeMounts:
+            - name: house-home-assistant-storage
+              mountPath: /config
+      volumes:
+        - name: house-home-assistant-storage
+          persistentVolumeClaim:
+            claimName: house-home-assistant-pvc
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
