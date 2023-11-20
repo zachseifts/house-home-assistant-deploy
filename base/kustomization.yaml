@@ -4,6 +4,7 @@ metadata:
   name: house-home-assistant
 resources:
  - namespace.yaml
+ - house-home-assistant.yaml
 configMapGenerator:
   - name: house-home-assistant-config
     literals:
