@@ -58,14 +58,9 @@ spec:
             - configMapRef:
                 name: "house-home-assistant-config"
           volumeMounts:
-            - name: house-home-assistant-storage
-              mountPath: /config
             - name: house-home-assistant-config-storage
-              mountPath: /opt/config
+              mountPath: /config
       volumes:
-        - name: house-home-assistant-storage
-          persistentVolumeClaim:
-            claimName: house-home-assistant-pvc
         - name: house-home-assistant-config-storage
           nfs:
             server: mbp.home.seifts.us
