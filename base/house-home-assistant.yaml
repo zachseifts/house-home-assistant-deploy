@@ -60,10 +60,16 @@ spec:
           volumeMounts:
             - name: house-home-assistant-storage
               mountPath: /config
+            - name: house-home-assistant-config-storage
+              mountPath: /opt/config
       volumes:
         - name: house-home-assistant-storage
           persistentVolumeClaim:
             claimName: house-home-assistant-pvc
+        - name: house-home-assistant-config-storage
+          nfs:
+            server: mbp.home.seifts.us
+            path: /srv/k8s-home-assistant
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
