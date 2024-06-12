@@ -51,7 +51,7 @@ spec:
     spec:
       containers:
         - name: house-home-assistant-image
-          image: ghcr.io/home-assistant/home-assistant:2024.2
+          image: ghcr.io/home-assistant/home-assistant:2024.6
           ports:
             - containerPort: 8123
           envFrom:
